@@ -37,7 +37,6 @@ const UserDetails = () => {
         if (userList && userList.length > 0) {
             const parseId = parseInt(id)
             const user = userList.filter(user => user.id === parseId)
-            console.log('user[0]', user[0])
             setUserInfo(user[0])
         }
     }
@@ -75,7 +74,7 @@ const UserDetails = () => {
     }, [])
 
     // useEffect(() => {
-    //     /**when click outside the popup menu close popup */
+    //     /**when click outside the popup modal close popup modal */
     //     const handleOutsideClick = (event) => {
 
     //         if (isShow && !event.target.closest('.modal-content')) {
@@ -97,7 +96,7 @@ const UserDetails = () => {
         <>
             <div >
                 <div className='sm:grid sm:grid-cols-4 sm:gap-4 w-full'>
-                    <button className='text-center ml-2 border-[1px] border-bold rounded-lg px-2 border-black my-2 text-lg bg-blue-200 w-20' onClick={() => navigate('/')}>back</button>
+                    <button className='text-center ml-2 border-[1px] border-bold rounded-lg px-2 border-black my-2 text-lg bg-blue-200 w-20 hover:bg-blue-400' onClick={() => navigate('/')}>back</button>
                     <div className='my-2'>
                         <label className='inline' htmlFor="countries">Country:</label>
                         <select className=' inline-block' name="countries" id="countries" onChange={handleCountryChange}>
@@ -114,7 +113,7 @@ const UserDetails = () => {
                             />
                         </ErrorBoundary>
                     </div>
-                    <button className=' ml-2 border-[1px] border-bold rounded-lg px-8 text-center border-black my-2 text-lg bg-blue-200 w-22 mr-2' onClick={() => setIsPause(!isPause)}>pause/start</button>
+                    <button className=' ml-2 border-[1px] border-bold rounded-lg px-8 text-center border-black my-2 text-lg bg-blue-200 w-22 mr-2  hover:bg-blue-400' onClick={() => setIsPause(!isPause)}>pause/start</button>
                 </div>
                 <h4 className='text-center text-lg mt-4 mb-2 font-bold'>Profile Page</h4>
                 <div className='sm:grid sm:grid-cols-2 border-[1px] border-bold rounded-lg border-black mx-2'>
