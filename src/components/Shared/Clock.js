@@ -28,9 +28,12 @@ const Clock = ({ timezone, isPause }) => {
     useEffect(() => {
         const interval = setInterval(() => {
             if (!isPause && timezone && timezone.length > 0) {
+                // getTimeOfRegion(timezone)
                 // Update the time every second when not paused
-                // console.log('time',time)
                 setTime((prevTime) => prevTime.add(1, 'second'));
+                // console.log('time', time);
+        // console.log('time',time)
+                
                 console.log('second +++')
             }
         }, 1000);
@@ -62,9 +65,17 @@ const Clock = ({ timezone, isPause }) => {
         }
     }, [isPause, pausedTime]);
 
+    useEffect(() => {
+        
+        console.log('time', time);
+    
+        
+    }, [time]);
+
     return (
         <div className='bg-[#1533667f] text-white w-15 h-12 mt-2 text-center pt-2'>
-            <h2>{pausedTime && Object.keys(pausedTime).length > 0 ? pausedTime.format('HH:mm:ss') : time.format('HH:mm:ss')}</h2>
+            {/* <h2>{pausedTime && Object.keys(pausedTime).length > 0 ? pausedTime.format('HH:mm:ss') : time.format('HH:mm:ss')}</h2> */}
+            <h2>{time && Object.keys(time).length>0 && time.format('HH:mm:ss')}</h2>
         </div>
     );
 };
