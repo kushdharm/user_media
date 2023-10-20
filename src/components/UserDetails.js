@@ -73,28 +73,27 @@ const UserDetails = () => {
         getCountriesValues()
     }, [])
 
-    // useEffect(() => {
-    //     /**when click outside the popup modal close popup modal */
-    //     const handleOutsideClick = (event) => {
+    useEffect(() => {
+        /**when click outside the popup modal close popup modal */
+        const handleOutsideClick = (event) => {
+            if (isShow && !event.target.closest('.modal-content')) {
+                setShow(false);
+            }
+        }
 
-    //         if (isShow && !event.target.closest('.modal-content')) {
-    //             setShow(false);
-    //         }
-    //     }
+        document.addEventListener('click', handleOutsideClick);
 
-    //     document.addEventListener('click', handleOutsideClick);
+        /***cleanup function: removing eventListener once handleOutsideClick is called*/
+        return () => {
+            document.removeEventListener('click', handleOutsideClick);
+        }
 
-    //     /***cleanup function: removing eventListener once handleOutsideClick is called*/
-    //     return () => {
-    //         document.removeEventListener('click', handleOutsideClick);
-    //     }
-
-    // }, [isShow]);
+    }, [isShow]);
 
 
     return (
         <>
-            <div >
+            <div className='modal-content' >
                 <div className='sm:grid sm:grid-cols-4 sm:gap-4 w-full'>
                     <button className='text-center ml-2 border-[1px] border-bold rounded-lg px-2 border-black my-2 text-lg bg-blue-200 w-20 hover:bg-blue-400' onClick={() => navigate('/')}>back</button>
                     <div className='my-2'>
@@ -138,16 +137,18 @@ const UserDetails = () => {
                     ))}
                 </div>
             </div>
-            {isShow && <div className='modal-content'>
-                <ErrorBoundary fallback="Something went wrong with post">
-                    <Post
-                        isShow={isShow}
-                        toggleModal={setShow}
-                        data={post}
+            {isShow &&
+                <div className='modal-content-post'>
+                    <ErrorBoundary fallback="Something went wrong with post">
 
-                    />
-                </ErrorBoundary>
-            </div>
+                        <Post
+                            isShow={isShow}
+                            toggleModal={setShow}
+                            data={post}
+
+                        />
+                    </ErrorBoundary>
+                </div>
             }
         </>
     )
