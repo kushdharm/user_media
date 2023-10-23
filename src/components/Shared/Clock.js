@@ -30,7 +30,6 @@ const Clock = ({ timezone, isPause }) => {
                 setTime((prevTime) => prevTime.add(1, 'second'));
 
                 console.log('second +++')
-                console.log('time',time)
             }
         }, 1000);
 
