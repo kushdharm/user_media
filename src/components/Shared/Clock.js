@@ -7,7 +7,6 @@ import moment from 'moment-timezone';
 const Clock = ({ timezone, isPause }) => {
 
     const [time, setTime] = useState(moment())
-    const [pausedTime, setPausedTime] = useState(null);
 
     const getTimeOfRegion = async (timezoneArea) => {
 
@@ -16,7 +15,6 @@ const Clock = ({ timezone, isPause }) => {
             const responseTime = timeDetails.data.utc_datetime
 
             const timeZoneWise = moment.tz(responseTime, timezoneArea)
-            setPausedTime(null)
             setTime(timeZoneWise);
 
         } catch (error) {
@@ -28,13 +26,11 @@ const Clock = ({ timezone, isPause }) => {
     useEffect(() => {
         const interval = setInterval(() => {
             if (!isPause && timezone && timezone.length > 0) {
-                // getTimeOfRegion(timezone)
                 // Update the time every second when not paused
                 setTime((prevTime) => prevTime.add(1, 'second'));
-                // console.log('time', time);
-        // console.log('time',time)
-                
+
                 console.log('second +++')
+                console.log('time',time)
             }
         }, 1000);
 
@@ -48,33 +44,18 @@ const Clock = ({ timezone, isPause }) => {
 
     useEffect(() => {
         if (!isPause && timezone && timezone.length > 0) {
-            // setPausedTime(null)
             // eslint-disable-next-line no-unused-expressions
             getTimeOfRegionCall
         } else {
-            setPausedTime(time)
+            setTime(time)
         }
 
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [isPause, timezone])
 
-    useEffect(() => {
-        // If isPause changes to false, resume the clock from the paused time
-        if (!isPause && pausedTime && Object.keys(pausedTime).length > 0) {
-            setTime(pausedTime);
-        }
-    }, [isPause, pausedTime]);
-
-    useEffect(() => {
-        
-        console.log('time', time);
-    
-        
-    }, [time]);
 
     return (
         <div className='bg-[#1533667f] text-white w-15 h-12 mt-2 text-center pt-2'>
-            {/* <h2>{pausedTime && Object.keys(pausedTime).length > 0 ? pausedTime.format('HH:mm:ss') : time.format('HH:mm:ss')}</h2> */}
             <h2>{time && Object.keys(time).length>0 && time.format('HH:mm:ss')}</h2>
         </div>
     );
